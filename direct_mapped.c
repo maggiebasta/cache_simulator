@@ -22,7 +22,7 @@ direct_mapped_cache* dmc_init(main_memory* mm)
     return result;
 }
 
-char *getBinary(unsigned int num)
+static char *getBinary(unsigned int num)
 {
     char* bstring;
     int i;

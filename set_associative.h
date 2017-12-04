@@ -9,11 +9,23 @@
 #define SET_ASSOCIATIVE_NUM_WAYS 2
 #define SET_ASSOCIATIVE_NUM_WAYS_LN 1
 
+typedef struct Way{
+    memory_block* block;
+    int lru_priority;
+    int dirty;
+    int valid;
+
+} Way;
+
+typedef struct set{
+    Way ways[SET_ASSOCIATIVE_NUM_WAYS];
+} set;
+
 typedef struct set_associative_cache
 {
     main_memory* mm;
     cache_stats cs;
-    
+	set sets[SET_ASSOCIATIVE_NUM_SETS];
     // TODO: add anything you need
 } set_associative_cache;
 
