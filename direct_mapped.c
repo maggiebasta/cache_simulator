@@ -43,12 +43,12 @@ static int addr_to_set(void* addr)
 
 	int setbits = log2(DIRECT_MAPPED_NUM_SETS);
 	int setindex = 0;
-	int i;
-	for (i = 0; i<setbits; i++){
-		int x = baddr[26 + i] - '0';
-		setindex += x * pow(2, (setbits-i));
-	}
-    
+	int startidx = 30 - setbits;
+    int i;
+    for (i = 0; i<setbits; i++){
+        int x = baddr[startidx + i] - '0';
+        setindex += x * pow(2.0, (setbits -1 - i));
+    }
     return setindex;
 }
 
