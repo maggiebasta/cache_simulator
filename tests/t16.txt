@@ -1,0 +1,291 @@
+74e0
+11
+00
+MM: Read 32 bytes at 0x74e0.
+Wrote to 0x74ec: -1122623626
+
+74e0
+12
+00
+MM: Read 32 bytes at 0x74e0.
+Read from 0x74f0: -1178962028
+
+74e0
+13
+00
+MM: Read 32 bytes at 0x74e0.
+Read from 0x74f4: -953078922
+
+74e0
+14
+00
+MM: Read 32 bytes at 0x74e0.
+Wrote to 0x74f8: 798332767
+
+74e0
+15
+00
+MM: Read 32 bytes at 0x74e0.
+Wrote to 0x74fc: 1365943080
+
+7500
+0
+00
+MM: Read 32 bytes at 0x7500.
+Read from 0x7500: 804039019
+
+7500
+1
+00
+MM: Read 32 bytes at 0x7500.
+Wrote to 0x7504: -2144399252
+
+7500
+2
+00
+MM: Read 32 bytes at 0x7500.
+Wrote to 0x7508: 984078905
+
+7500
+3
+00
+MM: Read 32 bytes at 0x7500.
+Read from 0x750c: -1180207993
+
+7500
+4
+00
+MM: Read 32 bytes at 0x7500.
+Read from 0x7510: -16200515
+
+7500
+5
+00
+MM: Read 32 bytes at 0x7500.
+Wrote to 0x7514: 1990027840
+
+7500
+6
+00
+MM: Read 32 bytes at 0x7500.
+Wrote to 0x7518: -496743370
+
+7500
+7
+00
+MM: Read 32 bytes at 0x7500.
+Read from 0x751c: -803295906
+
+7520
+8
+00
+MM: Read 32 bytes at 0x7520.
+Read from 0x7520: 68610138
+
+7520
+9
+00
+MM: Read 32 bytes at 0x7520.
+Read from 0x7524: -298068457
+
+7520
+10
+00
+MM: Read 32 bytes at 0x7520.
+Wrote to 0x7528: 1589377171
+
+7520
+11
+7520
+Read from 0x752c: 1879048192
+
+7520
+12
+7520
+Wrote to 0x7530: 358432382
+
+7520
+13
+7520
+Read from 0x7534: -118045
+
+7520
+14
+7520
+Wrote to 0x7538: -1052234975
+
+7520
+15
+7520
+Wrote to 0x753c: -410208486
+
+7540
+0
+7520
+MM: Read 32 bytes at 0x7540.
+Wrote to 0x7540: -407124091
+
+7540
+1
+7540
+Wrote to 0x7544: -1391202996
+
+7540
+2
+7540
+Read from 0x7548: 0
+
+7540
+3
+7540
+Read from 0x754c: 1879048192
+
+7540
+4
+7540
+Read from 0x7550: 858062850
+
+7540
+5
+7540
+Wrote to 0x7554: -81114375
+
+7540
+6
+7540
+Read from 0x7558: 831343148
+
+7540
+7
+7540
+Read from 0x755c: 193729
+
+7560
+8
+7540
+MM: Read 32 bytes at 0x7560.
+Wrote to 0x7560: 418275292
+
+7560
+9
+7560
+Wrote to 0x7564: 2007652463
+
+7560
+10
+7560
+Read from 0x7568: 0
+
+7560
+11
+7560
+Read from 0x756c: 1879048192
+
+7560
+12
+7560
+Read from 0x7570: -1924333566
+
+7560
+13
+7560
+Read from 0x7574: 849450540
+
+7560
+14
+7560
+Wrote to 0x7578: -1583828951
+
+7560
+15
+7560
+Read from 0x757c: 170444
+
+7580
+0
+7560
+MM: Wrote 32 bytes at 0x7560.
+MM: Read 32 bytes at 0x7580.
+Wrote to 0x7580: 884684012
+
+7580
+1
+7580
+Wrote to 0x7584: -1291808103
+
+7580
+2
+7580
+Read from 0x7588: 0
+
+7580
+3
+7580
+Read from 0x758c: 1879048192
+
+7580
+4
+7580
+Read from 0x7590: -1117061118
+
+7580
+5
+7580
+Wrote to 0x7594: 966691230
+
+7580
+6
+7580
+Wrote to 0x7598: -1047805606
+
+7580
+7
+7580
+Read from 0x759c: 168274
+
+75a0
+8
+7580
+MM: Wrote 32 bytes at 0x7580.
+MM: Read 32 bytes at 0x75a0.
+Wrote to 0x75a0: 302340343
+
+75a0
+9
+75a0
+Wrote to 0x75a4: -1334682658
+
+75a0
+10
+75a0
+Read from 0x75a8: 0
+
+75a0
+11
+75a0
+Wrote to 0x75ac: -332994872
+
+75a0
+12
+75a0
+Wrote to 0x75b0: -168212815
+
+75a0
+13
+75a0
+Read from 0x75b4: 21483982
+
+75a0
+14
+75a0
+Wrote to 0x75b8: -1974163997
+
+75a0
+15
+75a0
+Wrote to 0x75bc: 811925917
+
+75c0
+0
+75a0
+MM: Wrote 32 bytes at 0x75a0.

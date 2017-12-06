@@ -1,0 +1,119 @@
+5480
+6
+00
+MM: Read 32 bytes at 0x5480.
+Read from 0x5498: 1525155583
+
+8b40
+1
+00
+MM: Read 32 bytes at 0x8b40.
+Wrote to 0x8b44: -1204399758
+
+4880
+6
+78300957
+MM: Read 32 bytes at 0x4880.
+Wrote to 0x4898: 851342036
+
+eae0
+9
+00
+MM: Read 32 bytes at 0xeae0.
+Wrote to 0xeae4: 1156459098
+
+b9a0
+9
+eae0
+MM: Wrote 32 bytes at 0xeae0.
+MM: Read 32 bytes at 0xb9a0.
+Read from 0xb9a4: -921824511
+
+54c0
+5
+00
+MM: Read 32 bytes at 0x54c0.
+Read from 0x54d4: -2009240726
+
+2560
+14
+00
+MM: Read 32 bytes at 0x2560.
+Read from 0x2578: -2110103231
+
+40c0
+0
+00
+MM: Read 32 bytes at 0x40c0.
+Read from 0x40c0: -748025054
+
+82a0
+11
+00
+MM: Read 32 bytes at 0x82a0.
+Wrote to 0x82ac: -33276667
+
+c740
+6
+82a0
+MM: Wrote 32 bytes at 0x82a0.
+MM: Read 32 bytes at 0xc740.
+Wrote to 0xc758: -2015606390
+
+1d00
+0
+c740
+MM: Read 32 bytes at 0x1d00.
+Read from 0x1d00: -709394539
+
+82e0
+9
+1d00
+MM: Read 32 bytes at 0x82e0.
+Read from 0x82e4: -1889533960
+
+6620
+8
+00
+MM: Read 32 bytes at 0x6620.
+Wrote to 0x6620: -1978135902
+
+8e20
+15
+00
+MM: Read 32 bytes at 0x8e20.
+Wrote to 0x8e3c: 1503923324
+
+2000
+7
+00
+MM: Read 32 bytes at 0x2000.
+Wrote to 0x201c: 1590127541
+
+6560
+11
+2000
+MM: Wrote 32 bytes at 0x2000.
+MM: Read 32 bytes at 0x6560.
+Wrote to 0x656c: 1729271563
+
+5480
+4
+00
+MM: Read 32 bytes at 0x5480.
+Wrote to 0x5490: -1233429816
+
+7280
+4
+5480
+MM: Wrote 32 bytes at 0x5480.
+MM: Read 32 bytes at 0x7280.
+Read from 0x7290: -1649587873
+
+*******************************************
+Write Hit Rate:		0% (0/10)
+Read Hit Rate:		0% (0/8)
+Total Hit Rate:		0% (0/18)
+Writes to Main Memory:	4
+Reads from Main Memory:	18
+*******************************************
