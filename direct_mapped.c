@@ -43,12 +43,14 @@ static int addr_to_set(void* addr)
 
 	int setbits = log2(DIRECT_MAPPED_NUM_SETS);
 	int setindex = 0;
-	int startidx = 30 - setbits;
+	int startidx = 27 - setbits;
     int i;
     for (i = 0; i<setbits; i++){
         int x = baddr[startidx + i] - '0';
         setindex += x * pow(2.0, (setbits -1 - i));
     }
+    // printf(baddr);
+    // printf("\n");
     return setindex;
 }
 
@@ -75,6 +77,7 @@ void dmc_store_word(direct_mapped_cache* dmc, void* addr, unsigned int val)
     else{
     	if (dmc->dirty[index] == 1){
     		mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
+            mb_free(dmc->blocks[index]);
     	}
     	memory_block* mb = mm_read(dmc->mm, mb_start_addr);
     	unsigned int* mb_addr = mb->data + addr_offt;
@@ -96,10 +99,10 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
 
     int index = addr_to_set(addr);
 
-    // printf("%02x\n", ((uint8_t*) mb_start_addr));
+    // // printf("%02x\n", ((uint8_t*) mb_start_addr));
     // printf("%d", index);
     // printf("\n");
-    // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
+    // // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
 
     if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
     	unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
@@ -111,6 +114,7 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
     else{
     	if (dmc->dirty[index] == 1){
     		mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
+            mb_free(dmc->blocks[index]);
     	}
     	memory_block* mb = mm_read(dmc->mm, mb_start_addr);
     	unsigned int* mb_addr = mb->data + addr_offt;
@@ -131,5 +135,10 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
 
 void dmc_free(direct_mapped_cache* dmc)
 {
+    int i;
+    for(i = 0; i < DIRECT_MAPPED_NUM_SETS; i++)
+    {
+        mb_free(dmc->blocks[i]);
+    } 
     free(dmc);
 }
