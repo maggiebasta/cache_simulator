@@ -60,12 +60,12 @@ void dmc_store_word(direct_mapped_cache* dmc, void* addr, unsigned int val)
 
     int index = addr_to_set(addr);
 
-    printf("%02x\n", ((uint8_t*) mb_start_addr));
-    printf("%d", index);
-    printf("\n");
-    printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
+    // printf("%02x\n", ((uint8_t*) mb_start_addr));
+    // printf("%d", index);
+    // printf("\n");
+    // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
     
-    if (mb_start_addr == dmc->blocks[index]->start_addr){
+    if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
     	unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
     	*mb_addr = val;
     	dmc->dirty[index] = 1;
@@ -84,7 +84,7 @@ void dmc_store_word(direct_mapped_cache* dmc, void* addr, unsigned int val)
     	dmc->dirty[index] = 1;
     	++dmc->cs.w_misses;
     	++dmc->cs.w_queries;
-    	mb_free(mb);
+    	// mb_free(mb);
     }
 }
 
@@ -96,12 +96,12 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
 
     int index = addr_to_set(addr);
 
-    printf("%02x\n", ((uint8_t*) mb_start_addr));
-    printf("%d", index);
-    printf("\n");
-    printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
+    // printf("%02x\n", ((uint8_t*) mb_start_addr));
+    // printf("%d", index);
+    // printf("\n");
+    // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
 
-    if (mb_start_addr == dmc->blocks[index]->start_addr){
+    if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
     	unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
    		unsigned int result = *mb_addr;
    		++dmc->cs.r_queries;
@@ -123,7 +123,7 @@ unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
     	++dmc->cs.r_misses;
     	++dmc->cs.r_queries;
 
-    	mb_free(mb);
+    	// mb_free(mb);
     	return result;
     }	
 }

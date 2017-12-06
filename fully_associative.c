@@ -56,7 +56,7 @@ void fac_store_word(fully_associative_cache* fac, void* addr, unsigned int val)
     int i;
     for(i = 0; i < FULLY_ASSOCIATIVE_NUM_WAYS; i++)
     {
-        if(fac->ways[i].block->start_addr == mb_start_addr){
+        if((fac->ways[i].valid == 1) && (fac->ways[i].block->start_addr == mb_start_addr)){
         	hit = 1;
         	idx = i;
         }
@@ -85,7 +85,7 @@ void fac_store_word(fully_associative_cache* fac, void* addr, unsigned int val)
 
     	++fac->cs.w_misses;
     	++fac->cs.w_queries;
-    	mb_free(mb);
+    	// mb_free(mb);
     }
 }
 
@@ -100,7 +100,7 @@ unsigned int fac_load_word(fully_associative_cache* fac, void* addr)
     int i;
     for(i = 0; i < FULLY_ASSOCIATIVE_NUM_WAYS; i++)
     {
-        if(fac->ways[i].block->start_addr == mb_start_addr){
+        if((fac->ways[i].valid == 1) && (fac->ways[i].block->start_addr == mb_start_addr)){
         	hit = 1;
         	idx = i;
         }
@@ -130,7 +130,7 @@ unsigned int fac_load_word(fully_associative_cache* fac, void* addr)
 
     	++fac->cs.r_misses;
     	++fac->cs.r_queries;
-    	mb_free(mb);
+    	// mb_free(mb);
     	return result;
     }
 }

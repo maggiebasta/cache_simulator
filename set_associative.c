@@ -95,7 +95,7 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
     int i;
     for(i = 0; i < SET_ASSOCIATIVE_NUM_WAYS; i++)
     {
-        if(sac->sets[setidx].ways[i].block->start_addr == mb_start_addr){
+        if((sac->sets[setidx].ways[i].valid == 1) && (sac->sets[setidx].ways[i].block->start_addr == mb_start_addr)){
         	hit = 1;
         	idx = i;
         }
@@ -125,7 +125,7 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
 
     	++sac->cs.w_misses;
     	++sac->cs.w_queries;
-    	mb_free(mb);
+    	// mb_free(mb);
     }
 }
 
@@ -142,7 +142,7 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
     int i;
     for(i = 0; i < SET_ASSOCIATIVE_NUM_WAYS; i++)
     {
-        if(sac->sets[setidx].ways[i].block->start_addr == mb_start_addr){
+        if((sac->sets[setidx].ways[i].valid == 1) && (sac->sets[setidx].ways[i].block->start_addr == mb_start_addr)){
         	hit = 1;
         	idx = i;
         }
@@ -172,7 +172,7 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
 
     	++sac->cs.r_misses;
     	++sac->cs.r_queries;
-    	mb_free(mb);
+    	// mb_free(mb);
     	return result;
     }
 }
