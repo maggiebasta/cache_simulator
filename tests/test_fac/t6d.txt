@@ -68,19 +68,15 @@ Read from 0xf54c: -2033206316
 MM: Read 32 bytes at 0x1c80.
 Wrote to 0x1c90: 286938206
 
-MM: Wrote 32 bytes at 0x1da0.
 MM: Read 32 bytes at 0x8620.
 Read from 0x8624: 380418472
 
-MM: Wrote 32 bytes at 0xb640.
-MM: Read 32 bytes at 0x1da0.
 Wrote to 0x1db0: -2093567587
 
 Wrote to 0xe78: -1420885217
 
 Read from 0x1c84: 1212254715
 
-MM: Wrote 32 bytes at 0x2b60.
 MM: Read 32 bytes at 0x70a0.
 Wrote to 0x70b8: -1161971046
 
@@ -92,23 +88,18 @@ Wrote to 0x72e0: -2133647865
 
 Read from 0xf54c: -2033206316
 
-MM: Wrote 32 bytes at 0x100.
 MM: Read 32 bytes at 0x3b80.
 Wrote to 0x3b80: 1653386779
 
 MM: Read 32 bytes at 0x2920.
 Read from 0x2930: -2058490824
 
-MM: Wrote 32 bytes at 0x19c0.
-MM: Read 32 bytes at 0x2b60.
 Wrote to 0x2b7c: 1287753253
 
-MM: Read 32 bytes at 0x100.
 Read from 0x100: 76447639
 
 Read from 0xf550: 1291569488
 
-MM: Read 32 bytes at 0x19c0.
 Read from 0x19cc: 454557355
 
 Wrote to 0x1dac: -1706850117
@@ -135,11 +126,8 @@ Read from 0xe64: -801438337
 
 Read from 0x5be8: 66636395
 
-MM: Wrote 32 bytes at 0x2b60.
-MM: Read 32 bytes at 0xb640.
 Read from 0xb640: 1226453640
 
-MM: Read 32 bytes at 0x2b60.
 Wrote to 0x2b60: -639631570
 
 Read from 0x110: 809922542
@@ -147,9 +135,9 @@ Read from 0x110: 809922542
 Read from 0xb640: 1226453640
 
 *******************************************
-Write Hit Rate:		63% (19/30)
-Read Hit Rate:		63% (19/30)
-Total Hit Rate:		63% (38/60)
-Writes to Main Memory:	6
-Reads from Main Memory:	22
+Write Hit Rate:		73% (22/30)
+Read Hit Rate:		73% (22/30)
+Total Hit Rate:		73% (44/60)
+Writes to Main Memory:	0
+Reads from Main Memory:	16
 *******************************************

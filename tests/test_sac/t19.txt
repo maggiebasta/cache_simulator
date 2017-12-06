@@ -50,7 +50,6 @@ Wrote to 0x3cac: -1990750947
 MM: Read 32 bytes at 0x48a0.
 Wrote to 0x48b0: -1924365334
 
-MM: Wrote 32 bytes at 0x24a0.
 MM: Read 32 bytes at 0x68a0.
 Wrote to 0x68a0: -1973056418
 
@@ -79,7 +78,6 @@ Wrote to 0x24ac: -2063881380
 
 Wrote to 0x48a4: 921640983
 
-MM: Read 32 bytes at 0xf0a0.
 Read from 0xf0bc: -1963176829
 
 MM: Read 32 bytes at 0x3ca0.
@@ -89,7 +87,6 @@ MM: Wrote 32 bytes at 0xf0a0.
 MM: Read 32 bytes at 0x68a0.
 Read from 0x68a8: 488196892
 
-MM: Read 32 bytes at 0x3ca0.
 Read from 0x3cbc: -628441585
 
 MM: Wrote 32 bytes at 0x68a0.
@@ -162,8 +159,6 @@ Wrote to 0x3ca4: -2115731472
 MM: Read 32 bytes at 0xaca0.
 Read from 0xacbc: -1813995736
 
-MM: Wrote 32 bytes at 0xe6a0.
-MM: Read 32 bytes at 0xe6a0.
 Wrote to 0xe6b8: 2063787175
 
 MM: Read 32 bytes at 0x48a0.
@@ -176,6 +171,7 @@ MM: Wrote 32 bytes at 0xeea0.
 MM: Read 32 bytes at 0x6a0.
 Wrote to 0x6b0: 1343737382
 
+MM: Wrote 32 bytes at 0x24a0.
 MM: Read 32 bytes at 0xaca0.
 Wrote to 0xacac: -833934558
 
@@ -195,9 +191,9 @@ MM: Read 32 bytes at 0x3ca0.
 Wrote to 0x3cb4: 2029576095
 
 *******************************************
-Write Hit Rate:		10% (3/31)
-Read Hit Rate:		7% (2/29)
-Total Hit Rate:		8% (5/60)
-Writes to Main Memory:	21
-Reads from Main Memory:	55
+Write Hit Rate:		13% (4/31)
+Read Hit Rate:		14% (4/29)
+Total Hit Rate:		13% (8/60)
+Writes to Main Memory:	20
+Reads from Main Memory:	52
 *******************************************

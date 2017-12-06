@@ -258,36 +258,29 @@ Wrote to 0xef78: 1145472726
 
 Read from 0xef7c: 1005757365
 
+MM: Wrote 32 bytes at 0xed80.
 MM: Read 32 bytes at 0xef80.
 Wrote to 0xef80: -2089537565
 
-MM: Read 32 bytes at 0xef80.
 Wrote to 0xef84: 1323038895
 
-MM: Read 32 bytes at 0xef80.
 Read from 0xef88: 1783027102
 
-MM: Read 32 bytes at 0xef80.
 Wrote to 0xef8c: 798105975
 
-MM: Read 32 bytes at 0xef80.
 Read from 0xef90: 2090719458
 
-MM: Read 32 bytes at 0xef80.
 Read from 0xef94: 480591512
 
-MM: Read 32 bytes at 0xef80.
 Read from 0xef98: 748924010
 
-MM: Wrote 32 bytes at 0xef40.
-MM: Read 32 bytes at 0xef80.
 Wrote to 0xef9c: 1114546716
 
+MM: Wrote 32 bytes at 0xeda0.
 MM: Read 32 bytes at 0xefa0.
 Wrote to 0xefa0: -1088843092
 
-MM: Read 32 bytes at 0xefa0.
-Read from 0xefa0: 496141802
+Read from 0xefa0: -1088843092
 
 Read from 0xef9c: 1114546716
 
@@ -297,13 +290,13 @@ Read from 0xef94: 480591512
 
 Read from 0xef90: 2090719458
 
-Read from 0xef8c: 185626762
+Read from 0xef8c: 798105975
 
 Read from 0xef88: 1783027102
 
-Read from 0xef84: 574286300
+Read from 0xef84: 1323038895
 
-Read from 0xef80: -816058509
+Read from 0xef80: -2089537565
 
 Read from 0xef7c: 1005757365
 
@@ -321,29 +314,20 @@ Read from 0xef64: 1197579885
 
 Read from 0xef60: 516088771
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef5c: 1982280150
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef58: -912494305
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef54: -1601708169
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef50: -360722232
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef4c: 837945890
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef48: 646983685
 
-MM: Read 32 bytes at 0xef40.
 Read from 0xef44: 1034183797
 
-MM: Wrote 32 bytes at 0xef80.
-MM: Read 32 bytes at 0xef40.
 Read from 0xef40: -2137952563
 
 Read from 0xef3c: -1598586640
@@ -538,6 +522,8 @@ Read from 0xedc4: 1549571101
 
 Read from 0xedc0: -1240796816
 
+MM: Wrote 32 bytes at 0xefa0.
+MM: Read 32 bytes at 0xeda0.
 Read from 0xedbc: -397705428
 
 Read from 0xedb8: 94975538
@@ -554,14 +540,16 @@ Read from 0xeda4: 954281702
 
 Read from 0xeda0: -385424985
 
+MM: Wrote 32 bytes at 0xef80.
+MM: Read 32 bytes at 0xed80.
 Read from 0xed9c: -1195024245
 
 Read from 0xed98: 475235665
 
 *******************************************
-Write Hit Rate:		100% (2020039936/2020039936)
-Read Hit Rate:		97% (105/108)
-Total Hit Rate:		100% (2020040041/2020040044)
-Writes to Main Memory:	2
-Reads from Main Memory:	34
+Write Hit Rate:		86% (48/56)
+Read Hit Rate:		94% (194/206)
+Total Hit Rate:		92% (242/262)
+Writes to Main Memory:	4
+Reads from Main Memory:	20
 *******************************************

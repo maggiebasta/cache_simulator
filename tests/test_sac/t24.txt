@@ -20,7 +20,6 @@ Wrote to 0x21a8: 48
 MM: Read 32 bytes at 0xe600.
 Read from 0xe60c: 2037373040
 
-MM: Wrote 32 bytes at 0x2a80.
 MM: Read 32 bytes at 0xe480.
 Read from 0xe488: 447990824
 
@@ -42,8 +41,6 @@ Wrote to 0xbc: 5
 
 Read from 0x2a8c: -38
 
-MM: Wrote 32 bytes at 0x5de0.
-MM: Read 32 bytes at 0x5de0.
 Wrote to 0x5df0: 15
 
 MM: Read 32 bytes at 0x21a0.
@@ -57,9 +54,9 @@ MM: Read 32 bytes at 0xc6e0.
 Wrote to 0xc6e8: 58
 
 *******************************************
-Write Hit Rate:		0% (0/9)
+Write Hit Rate:		11% (1/9)
 Read Hit Rate:		40% (4/10)
-Total Hit Rate:		21% (4/19)
-Writes to Main Memory:	5
-Reads from Main Memory:	15
+Total Hit Rate:		26% (5/19)
+Writes to Main Memory:	3
+Reads from Main Memory:	14
 *******************************************

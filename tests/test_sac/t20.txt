@@ -180,7 +180,6 @@ MM: Wrote 32 bytes at 0x10a0.
 MM: Read 32 bytes at 0x40.
 Read from 0x48: -1872143673
 
-MM: Wrote 32 bytes at 0xbb60.
 MM: Read 32 bytes at 0xa780.
 Read from 0xa780: -237269391
 
@@ -205,6 +204,6 @@ Read from 0x11d8: 1339061274
 Write Hit Rate:		0% (0/27)
 Read Hit Rate:		3% (1/33)
 Total Hit Rate:		2% (1/60)
-Writes to Main Memory:	24
+Writes to Main Memory:	23
 Reads from Main Memory:	59
 *******************************************

@@ -72,7 +72,6 @@ Wrote to 0x4f4c: 1608904571
 MM: Read 32 bytes at 0xe9c0.
 Read from 0xe9cc: 1957681107
 
-MM: Read 32 bytes at 0x8400.
 Wrote to 0x8400: -552313816
 
 Read from 0xf164: -830415301
@@ -136,9 +135,9 @@ Read from 0x2c68: 2044179963
 Wrote to 0x2ae8: 83784763
 
 *******************************************
-Write Hit Rate:		73% (24/33)
+Write Hit Rate:		76% (25/33)
 Read Hit Rate:		70% (19/27)
-Total Hit Rate:		72% (43/60)
+Total Hit Rate:		73% (44/60)
 Writes to Main Memory:	0
-Reads from Main Memory:	17
+Reads from Main Memory:	16
 *******************************************
