@@ -43,7 +43,7 @@ static int addr_to_set(void* addr)
 
 	int setbits = log2(DIRECT_MAPPED_NUM_SETS);
 	int setindex = 0;
-	int startidx = 27 - setbits;
+	int startidx = 32 - MAIN_MEMORY_BLOCK_SIZE_LN - setbits;
     int i;
     for (i = 0; i<setbits; i++){
         int x = baddr[startidx + i] - '0';
