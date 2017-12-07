@@ -22,35 +22,34 @@ direct_mapped_cache* dmc_init(main_memory* mm)
     return result;
 }
 
+// Conversion from int casted address to binary
 static char *getBinary(unsigned int num)
 {
     char* bstring;
     int i;
     bstring = (char*) malloc(sizeof(char) * 33);
-    bstring[32] = '\0'; 
+    bstring[32] = '\0';
     for( i = 0; i < 32; i++ )
     {
         bstring[32 - 1 - i] = (num == ((1 << i) | num)) ? '1' : '0';
-    }    
+    }
     return bstring;
 }
 
-// Optional
+// Computes set index
 static int addr_to_set(void* addr)
 {
-	int intaddr = (uintptr_t)addr;
-	char* baddr = getBinary(intaddr);
+    int intaddr = (uintptr_t)addr;
+    char* baddr = getBinary(intaddr);
 
-	int setbits = log2(DIRECT_MAPPED_NUM_SETS);
-	int setindex = 0;
-	int startidx = 32 - MAIN_MEMORY_BLOCK_SIZE_LN - setbits;
+    int setbits = log2(DIRECT_MAPPED_NUM_SETS);
+    int setindex = 0;
+    int startidx = 32 - MAIN_MEMORY_BLOCK_SIZE_LN - setbits;
     int i;
     for (i = 0; i<setbits; i++){
         int x = baddr[startidx + i] - '0';
         setindex += x * pow(2.0, (setbits -1 - i));
     }
-    // printf(baddr);
-    // printf("\n");
     free(baddr);
     return setindex;
 }
@@ -58,86 +57,88 @@ static int addr_to_set(void* addr)
 
 void dmc_store_word(direct_mapped_cache* dmc, void* addr, unsigned int val)
 {
-	size_t addr_offt = (size_t) (addr - MAIN_MEMORY_START_ADDR) % MAIN_MEMORY_BLOCK_SIZE;
-    void* mb_start_addr = addr - addr_offt;
-
-    int index = addr_to_set(addr);
-
-    // printf("%02x\n", ((uint8_t*) mb_start_addr));
-    // printf("%d", index);
-    // printf("\n");
-    // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
-    
-    if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
-    	unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
-    	*mb_addr = val;
-    	dmc->dirty[index] = 1;
-    	++dmc->cs.w_queries;
-
-    }
-    else{
-    	if (dmc->dirty[index] == 1){
-    		mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
-    	}
-        if (dmc->valid[index] == 1){
-           mb_free(dmc->blocks[index]); 
-        }
-    	memory_block* mb = mm_read(dmc->mm, mb_start_addr);
-    	unsigned int* mb_addr = mb->data + addr_offt;
-    	*mb_addr = val;
-    	dmc->blocks[index] = mb;
-    	dmc->valid[index] = 1;
-    	dmc->dirty[index] = 1;
-    	++dmc->cs.w_misses;
-    	++dmc->cs.w_queries;
-    	// mb_free(mb);
-    }
-}
-
-unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
-{   
     // Precompute start address of memory block
     size_t addr_offt = (size_t) (addr - MAIN_MEMORY_START_ADDR) % MAIN_MEMORY_BLOCK_SIZE;
     void* mb_start_addr = addr - addr_offt;
 
+    // Precompute set offset of memory block
     int index = addr_to_set(addr);
 
-    // // printf("%02x\n", ((uint8_t*) mb_start_addr));
-    // printf("%d", index);
-    // printf("\n");
-    // // printf("%02x\n", ((uint8_t*) dmc->blocks[index]->start_addr));
-
+    // Updates cache on hit
     if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
-    	unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
-   		unsigned int result = *mb_addr;
-   		++dmc->cs.r_queries;
-   		return result;
+        unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
+        *mb_addr = val;
+        dmc->dirty[index] = 1;
+        ++dmc->cs.w_queries;
+
     }
 
+    // Updates cache and memory on miss 
     else{
-    	if (dmc->dirty[index] == 1){
-    		mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
-    	}
-        if (dmc->valid[index] == 1){
-           mb_free(dmc->blocks[index]); 
+        if (dmc->dirty[index] == 1){
+            mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
         }
-    	memory_block* mb = mm_read(dmc->mm, mb_start_addr);
-    	unsigned int* mb_addr = mb->data + addr_offt;
-    	unsigned int result = *mb_addr;
-    	dmc->blocks[index] = mb;
-    	
-    	dmc->valid[index] = 1;
-    	dmc->dirty[index] = 0;
-
-    	++dmc->cs.r_misses;
-    	++dmc->cs.r_queries;
-
-    	// mb_free(mb);
-    	return result;
-    }	
+        if (dmc->valid[index] == 1){
+           mb_free(dmc->blocks[index]);
+        }
+        else{
+            free(dmc->blocks[index]);
+        }
+        memory_block* mb = mm_read(dmc->mm, mb_start_addr);
+        unsigned int* mb_addr = mb->data + addr_offt;
+        *mb_addr = val;
+        dmc->blocks[index] = mb;
+        dmc->valid[index] = 1;
+        dmc->dirty[index] = 1;
+        ++dmc->cs.w_misses;
+        ++dmc->cs.w_queries;
+    }
 }
 
+unsigned int dmc_load_word(direct_mapped_cache* dmc, void* addr)
+{
+    // Precompute start address of memory block
+    size_t addr_offt = (size_t) (addr - MAIN_MEMORY_START_ADDR) % MAIN_MEMORY_BLOCK_SIZE;
+    void* mb_start_addr = addr - addr_offt;
 
+    // Precompute set offset of memory block
+    int index = addr_to_set(addr);
+
+    // Updates cache on hit 
+    if ((dmc->valid[index] == 1) && (mb_start_addr == dmc->blocks[index]->start_addr)){
+        unsigned int* mb_addr = dmc->blocks[index]->data + addr_offt;
+        unsigned int result = *mb_addr;
+        ++dmc->cs.r_queries;
+        return result;
+    }
+
+    // Updates cache and memory on miss 
+    else{
+        if (dmc->dirty[index] == 1){
+            mm_write(dmc->mm, dmc->blocks[index]->start_addr, dmc->blocks[index]);
+        }
+        if (dmc->valid[index] == 1){
+           mb_free(dmc->blocks[index]);
+        }
+        else{
+            free(dmc->blocks[index]);
+        }
+        memory_block* mb = mm_read(dmc->mm, mb_start_addr);
+        unsigned int* mb_addr = mb->data + addr_offt;
+        unsigned int result = *mb_addr;
+        dmc->blocks[index] = mb;
+
+        dmc->valid[index] = 1;
+        dmc->dirty[index] = 0;
+
+        ++dmc->cs.r_misses;
+        ++dmc->cs.r_queries;
+
+        return result;
+    }
+}
+
+// free all allocated memory
 void dmc_free(direct_mapped_cache* dmc)
 {
     int i;
@@ -146,6 +147,9 @@ void dmc_free(direct_mapped_cache* dmc)
         if (dmc->valid[i] == 1){
             mb_free(dmc->blocks[i]);
         }
-    } 
+        else{
+            free(dmc->blocks[i]);
+        }
+    }
     free(dmc);
 }

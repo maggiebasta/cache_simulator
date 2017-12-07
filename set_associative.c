@@ -7,7 +7,6 @@
 
 set_associative_cache* sac_init(main_memory* mm)
 {
-
     set_associative_cache* result = malloc(sizeof(set_associative_cache));
     result->mm = mm;
     result->cs = cs_init();
@@ -28,19 +27,21 @@ set_associative_cache* sac_init(main_memory* mm)
     return result;
 }
 
+// Conversion from int casted address to binary
 static char *getBinary(unsigned int num)
 {
     char* bstring;
     int i;
     bstring = (char*) malloc(sizeof(char) * 33);
-    bstring[32] = '\0'; 
+    bstring[32] = '\0';
     for( i = 0; i < 32; i++ )
     {
         bstring[32 - 1 - i] = (num == ((1 << i) | num)) ? '1' : '0';
-    }    
+    }
     return bstring;
 }
 
+// Computes set index
 static int addr_to_set(void* addr)
 {
     int intaddr = (uintptr_t)addr;
@@ -54,12 +55,11 @@ static int addr_to_set(void* addr)
         int x = baddr[startidx + i] - '0';
         setindex += x * pow(2.0, (setbits -1 - i));
     }
-    // printf(baddr);
-    // printf("\n");
     free(baddr);
     return setindex;
 }
 
+// Marks used block to update LRU priority
 static void mark_as_used(set_associative_cache* sac, int set, int way)
 {
     int i;
@@ -72,6 +72,7 @@ static void mark_as_used(set_associative_cache* sac, int set, int way)
     sac->sets[set].ways[way].lru_priority = 0;
 }
 
+// Returns LRU priority
 static int lru(set_associative_cache* sac, int set)
 {
     int i;
@@ -87,14 +88,16 @@ static int lru(set_associative_cache* sac, int set)
     return maxi;
 }
 
-
 void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
 {
+    // Precompute start address of memory block
     size_t addr_offt = (size_t) (addr - MAIN_MEMORY_START_ADDR) % MAIN_MEMORY_BLOCK_SIZE;
     void* mb_start_addr = addr - addr_offt;
 
+    // Precompute set offset of memory block
     int setidx = addr_to_set(mb_start_addr);
 
+    // If a hit exists in cache find the index
     int hit = 0;
     int idx;
     int i;
@@ -106,6 +109,7 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
         }
     }
 
+    // Updates cache on hit
     if (hit == 1){
         unsigned int* mb_addr = sac->sets[setidx].ways[idx].block->data + addr_offt;
         *mb_addr = val;
@@ -114,14 +118,20 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
 
         ++sac->cs.w_queries;
     }
+
+    // Updates cache and memory on miss 
     else{
         int lastw = lru(sac, setidx);
 
         if ((sac->sets[setidx].ways[lastw].valid == 1) && (sac->sets[setidx].ways[lastw].dirty == 1)){
             mm_write(sac->mm, sac->sets[setidx].ways[lastw].block->start_addr, sac->sets[setidx].ways[lastw].block);
         }
+
         if (sac->sets[setidx].ways[lastw].valid == 1){
             mb_free(sac->sets[setidx].ways[lastw].block);
+        }
+        else{
+            free(sac->sets[setidx].ways[lastw].block);
         }
         memory_block* mb = mm_read(sac->mm, mb_start_addr);
         unsigned int* mb_addr = mb->data + addr_offt;
@@ -133,16 +143,17 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
 
         ++sac->cs.w_misses;
         ++sac->cs.w_queries;
-        // mb_free(mb);
     }
 }
 
 
 unsigned int sac_load_word(set_associative_cache* sac, void* addr)
 {
+    // Precompute start address of memory block
     size_t addr_offt = (size_t) (addr - MAIN_MEMORY_START_ADDR) % MAIN_MEMORY_BLOCK_SIZE;
     void* mb_start_addr = addr - addr_offt;
 
+    // If a hit exists in cache find the index
     int setidx = addr_to_set(mb_start_addr);
 
     int hit = 0;
@@ -157,6 +168,7 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
         }
     }
 
+    // Updates cache and memory on hit 
     if (hit == 1){
         unsigned int* mb_addr = sac->sets[setidx].ways[idx].block->data + addr_offt;
         unsigned int result = *mb_addr;
@@ -165,6 +177,8 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
         return result;
 
     }
+
+    // Updates cache and memory on miss 
     else{
         int lastw = lru(sac, setidx);
         if (sac->sets[setidx].ways[lastw].valid == 1 && sac->sets[setidx].ways[lastw].dirty == 1){
@@ -172,6 +186,9 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
         }
         if (sac->sets[setidx].ways[lastw].valid == 1){
             mb_free(sac->sets[setidx].ways[lastw].block);
+        }
+        else{
+            free(sac->sets[setidx].ways[lastw].block);
         }
         memory_block* mb = mm_read(sac->mm, mb_start_addr);
         unsigned int* mb_addr = mb->data + addr_offt;
@@ -183,13 +200,13 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
 
         ++sac->cs.r_misses;
         ++sac->cs.r_queries;
-        // mb_free(mb);
         return result;
     }
 }
 
 void sac_free(set_associative_cache* sac)
 {
+    // free all allocated memory
     int i;
     int j;
     for(i = 0; i < SET_ASSOCIATIVE_NUM_SETS; i++)
@@ -199,7 +216,9 @@ void sac_free(set_associative_cache* sac)
             if (sac->sets[i].ways[j].valid == 1){
                 mb_free(sac->sets[i].ways[j].block);
             }
-
+            else{
+                free(sac->sets[i].ways[j].block);
+            }
         }
     }
     free(sac);
