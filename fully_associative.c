@@ -80,8 +80,10 @@ void fac_store_word(fully_associative_cache* fac, void* addr, unsigned int val)
     else{
     	if (fac->ways[lastw].valid == 1 && fac->ways[lastw].dirty == 1){
     		mm_write(fac->mm, fac->ways[lastw].block->start_addr, fac->ways[lastw].block);
-            mb_free(fac->ways[lastw].block);
     	}
+        if(fac->ways[lastw].valid == 1){
+            mb_free(fac->ways[lastw].block);
+        }
     	memory_block* mb = mm_read(fac->mm, mb_start_addr);
     	unsigned int* mb_addr = mb->data + addr_offt;
     	*mb_addr = val;
@@ -127,9 +129,11 @@ unsigned int fac_load_word(fully_associative_cache* fac, void* addr)
     else{
     	if (fac->ways[lastw].valid == 1 && fac->ways[lastw].dirty == 1){
     		mm_write(fac->mm, fac->ways[lastw].block->start_addr, fac->ways[lastw].block);
-            mb_free(fac->ways[lastw].block);
             fac->ways[lastw].dirty = 0;
     	}
+        if(fac->ways[lastw].valid == 1){
+            mb_free(fac->ways[lastw].block);
+        }
     	memory_block* mb = mm_read(fac->mm, mb_start_addr);
     	unsigned int* mb_addr = mb->data + addr_offt;
     	unsigned int result = *mb_addr;
@@ -150,7 +154,9 @@ void fac_free(fully_associative_cache* fac)
     int i;
     for(i = 0; i < FULLY_ASSOCIATIVE_NUM_WAYS; i++)
     {
-        mb_free(fac->ways[i].block);
+        if(fac->ways[i].valid == 1){
+            mb_free(fac->ways[i].block);
+        }  
     } 
     free(fac);
 }

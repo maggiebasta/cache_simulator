@@ -56,6 +56,7 @@ static int addr_to_set(void* addr)
     }
     // printf(baddr);
     // printf("\n");
+    free(baddr);
     return setindex;
 }
 
@@ -118,6 +119,8 @@ void sac_store_word(set_associative_cache* sac, void* addr, unsigned int val)
 
         if ((sac->sets[setidx].ways[lastw].valid == 1) && (sac->sets[setidx].ways[lastw].dirty == 1)){
             mm_write(sac->mm, sac->sets[setidx].ways[lastw].block->start_addr, sac->sets[setidx].ways[lastw].block);
+        }
+        if (sac->sets[setidx].ways[lastw].valid == 1){
             mb_free(sac->sets[setidx].ways[lastw].block);
         }
         memory_block* mb = mm_read(sac->mm, mb_start_addr);
@@ -166,6 +169,8 @@ unsigned int sac_load_word(set_associative_cache* sac, void* addr)
         int lastw = lru(sac, setidx);
         if (sac->sets[setidx].ways[lastw].valid == 1 && sac->sets[setidx].ways[lastw].dirty == 1){
             mm_write(sac->mm, sac->sets[setidx].ways[lastw].block->start_addr, sac->sets[setidx].ways[lastw].block);
+        }
+        if (sac->sets[setidx].ways[lastw].valid == 1){
             mb_free(sac->sets[setidx].ways[lastw].block);
         }
         memory_block* mb = mm_read(sac->mm, mb_start_addr);
@@ -191,8 +196,11 @@ void sac_free(set_associative_cache* sac)
     {
         for(j = 0; j < SET_ASSOCIATIVE_NUM_WAYS; j++)
         {
-            mb_free(sac->sets[i].ways[j].block);
+            if (sac->sets[i].ways[j].valid == 1){
+                mb_free(sac->sets[i].ways[j].block);
+            }
+
         }
-    } 
+    }
     free(sac);
 }
